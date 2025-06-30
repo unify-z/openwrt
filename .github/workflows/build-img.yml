@@ -9,6 +9,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout OpenWrt Source
       uses: actions/checkout@v3
@@ -27,8 +28,7 @@ jobs:
 
     - name: Load Custom Configuration (.config)
       run: |
-        ls -al .config || echo "No Config file found"
-        cp .config .config.backup
+        ls -al .config
         make defconfig
 
     - name: Build OpenWrt (Multi-threaded)
@@ -36,7 +36,7 @@ jobs:
         make -j$(nproc) || make -j1 V=s
 
     - name: Upload Firmware to Artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: OpenWrt-Firmware
         path: bin/targets/
