@@ -30,6 +30,7 @@ jobs:
     - name: Load Custom Configuration (.config)
       run: |
         make defconfig
+        cat .config | grep 8821cu
 
     - name: Build OpenWrt
       run: |
